@@ -7,6 +7,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import net.objecthunter.exp4j.ExpressionBuilder;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -55,6 +58,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void calculate(){
-
+        String text = display.getText().toString();
+        try{
+            Double res = new ExpressionBuilder(text).build().evaluate();
+            display.setText(""+res);
+        } catch (Exception e){
+            Log.d("Invalid ops caught", text);
+            Toast.makeText(this, ""+e, Toast.LENGTH_SHORT).show();
+        }
     }
 }
